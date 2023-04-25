@@ -1,40 +1,339 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
-	<head>
-		<meta charset="utf-8">
-		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <head>
+    <meta charset="utf-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"
+    />
 
-		<title>reveal.js</title>
+    <title>reveal.js</title>
 
-		<link rel="stylesheet" href="dist/reset.css">
-		<link rel="stylesheet" href="dist/reveal.css">
-		<link rel="stylesheet" href="dist/theme/black.css">
+    <link rel="stylesheet" href="dist/reset.css" />
+    <link rel="stylesheet" href="dist/reveal.css" />
+    <link rel="stylesheet" href="dist/theme/white.css" />
 
-		<!-- Theme used for syntax highlighted code -->
-		<link rel="stylesheet" href="plugin/highlight/monokai.css">
-	</head>
-	<body>
-		<div class="reveal">
-			<div class="slides">
-				<section>Slide 1</section>
-				<section>Slide 2</section>
-			</div>
-		</div>
+    <!-- Theme used for syntax highlighted code -->
+    <link rel="stylesheet" href="plugin/highlight/monokai.css" />
+  </head>
+  <body>
+    <div class="reveal">
+      <div class="slides">
+        <section>
+          <h3>СПОСОБ ПЕРЕДАЧИ ДАННЫХ ЧЕРЕЗ ИНТЕРНЕТ</h3>
+          <br />
+          <p>OSI - TCP/IP - QUIC/UDP - HTTP</p>
+          <aside class="notes">
+            Чтобы понять, как работает интернет-коммуникация, нам необходимо
+            ознакомиться с моделью OSI. Соединение открытых систем обеспечивает
+            стандарт, позволяющий различным компьютерным системам
+            взаимодействовать друг с другом. Модель OSI (open systems
+            interconnection) можно рассматривать как универсальный язык для
+            создания компьютерных сетей. Он основан на концепции разделения
+            коммуникационной системы на семь абстрактных уровней, каждый из
+            которых накладывается на предыдущий.
+          </aside>
+        </section>
+        <section>
+          <h2>OSI MODEL</h2>
+          <img
+            src="./assets/seven-layers-of-OSI-model.png"
+            style="width: 500px"
+          />
+          <aside class="notes">
+            Существуют уровни физического, канала передачи данных, сети,
+            транспорта, сеанса, презентации, приложения.
+          </aside>
+        </section>
+        <section>
+          <h2>OSI VS TCP/IP</h2>
+          <img src="./assets/osiVStcp.png" style="width: 500px" />
+          <aside class="notes">
+            Модель TCP/IP - это набор протоколов связи, с помощью которых
+            сетевые устройства могут быть подключены к Интернету. Он состоит из
+            четырех слоев. однако модель OSI - это концептуальная структура, с
+            помощью которой можно объяснить функционирование сети.
+          </aside>
+        </section>
+        <section>
+          <section>
+            <h2>TCP/IP</h2>
+            <img src="./assets/stack.svg" style="width: 500px" />
+            <aside class="notes">
+              Давайте подробнее поговорим о том, как это работает на
+              транспортном уровне. Здесь у нас есть два протокола. TCP
+              (Transmission Control Protocol) протокол управления передачей
+              включает механизмы для решения многих проблем, возникающих при
+              передаче сообщений на основе пакетов, таких как потерянные пакеты,
+              пакеты не по порядку, дублирующиеся пакеты и поврежденные пакеты.
+              UDP (User Datagram Protocol) протокол пользовательских дейтаграмм
+              предоставляет механизм для обнаружения поврежденных данных в
+              пакетах, но он не пытается решить другие проблемы, возникающие с
+              пакетами, такие как потерянные или вышедшие из строя пакеты. UDP
+              прост, но быстр, по крайней мере, по сравнению с другими
+              протоколами, которые работают по IP. Он часто используется для
+              приложений, чувствительных ко времени (таких как потоковое видео в
+              реальном времени), где скорость важнее точности.
+            </aside>
+          </section>
+          <section>
+            <h4>Формат пакета</h4>
+            <img src="./assets/tcp-segment.svg" style="width: 800px" />
+            <img src="./assets/udp-segment.svg" style="width: 800px" />
+            <aside class="notes">
+              При отправке пакетов с использованием TCP или UDP часть данных
+              каждого IP-пакета форматируется как сегмент TCP или UDP.
+            </aside>
+          </section>
+          <section>
+            <h4>Шаг 1: установить соединение</h4>
+            <img src="./assets/step1.svg" style="width: 600px" />
+            <img src="./assets/step11.svg" style="width: 600px" />
+            <aside class="notes">
+              При отправке пакетов с использованием TCP или UDP часть данных
+              каждого IP-пакета форматируется как сегмент TCP или UDP.
+            </aside>
+          </section>
+          <section>
+            <h4>Шаг 2: ОТПРАВЛЯТЬ ПАКЕТЫ ДАННЫХ</h4>
+            <img src="./assets/step2.svg" style="width: 600px" />
+            <img src="./assets/step22.svg" style="width: 600px" />
+            <aside class="notes">
+              Когда пакет данных отправляется по протоколу TCP, получатель
+              всегда должен подтвердить, что он получил. Первый компьютер
+              отправляет пакет с данными и порядковым номером. Второй компьютер
+              подтверждает это, устанавливая бит ACK и увеличивая номер
+              подтверждения на длину принятых данных. Номера последовательности
+              (sequence) и подтверждения (acknowledgement) являются частью
+              заголовка TCP. Эти два числа помогают компьютерам отслеживать,
+              какие данные были успешно получены, какие данные были потеряны, а
+              какие данные были случайно отправлены дважды.
+            </aside>
+          </section>
+          <section>
+            <h4>Шаг 3: ЗАКРЫТЬ СОЕДИНЕНИЕ</h4>
+            <img src="./assets/step3.svg" style="width: 1000px" />
+            <aside class="notes">
+              Любой компьютер может закрыть соединение, если он больше не хочет
+              отправлять или получать данные. Компьютер инициирует закрытие
+              соединения, отправляя пакет с битом FIN, установленным в 1 (FIN =
+              finish). Другой компьютер отвечает подтверждением и еще одним FIN.
+              После еще одного подтверждения от инициирующего компьютера
+              соединение закрывается.
+            </aside>
+          </section>
+          <section>
+            <h4>ОБНАРУЖЕНИЕ ПОТЕРЯННЫХ ПАКЕТОВ</h4>
+            <img src="./assets/detect.svg" style="width: 1000px" />
+            <aside class="notes">
+              TCP-соединения могут обнаруживать потерянные пакеты, используя
+              тайм-аут. После отправки пакета отправитель запускает таймер и
+              помещает пакет в очередь повторной передачи. Если таймер истекает,
+              а отправитель еще не получил подтверждение от получателя, он
+              отправляет пакет снова. Повторная передача может привести к
+              получению получателем дубликатов пакетов, если пакет на самом деле
+              не был потерян, а просто очень медленно поступал или был
+              подтвержден. Если это так, получатель может просто отбросить
+              дублирующиеся пакеты. Лучше иметь данные дважды, чем не иметь их
+              вообще!
+            </aside>
+          </section>
+          <section>
+            <h4>ОБРАБОТКА УТЕРЯНЫХ ПАКЕТОВ</h4>
+            <img src="./assets/order1.svg" style="width: 1000px" />
+            <aside class="notes">
+              TCP-соединения могут обнаруживать пакеты не по порядку, используя
+              номера последовательности и подтверждения. Когда получатель видит
+              порядковый номер, превышающий тот, который он подтвердил до сих
+              пор, он знает, что ему не хватает по крайней мере одного
+              промежуточного пакета. В ситуации, изображенной выше, получатель
+              видит порядковый номер #73, но ожидал порядковый номер #37.
+              Получатель сообщает отправителю, что что-то не так, отправляя
+              пакет с номером подтверждения, равным ожидаемому порядковому
+              номеру.
+            </aside>
+          </section>
+          <section>
+            <h4>ОБРАБОТКА ЗАДЕРЖАВШИХСЯ ПАКЕТОВ</h4>
+            <img src="./assets/order2.svg" style="width: 1000px" />
+            <aside class="notes">
+              Иногда пропавший пакет просто проходит более медленным маршрутом
+              через Интернет и вскоре прибывает.
+            </aside>
+          </section>
+          <section>
+            <h4>ОБРАБОТКА УТЕРЯНЫХ ПАКЕТОВ</h4>
+            <img src="./assets/order3.svg" style="width: 1000px" />
+            <aside class="notes">
+              В других случаях отсутствующий пакет на самом деле может быть
+              потерянным пакетом, и отправитель должен повторно передать пакет.
+            </aside>
+          </section>
+          <section>
+            <h4>ОБРАБОТКА ЗАДЕРЖАВШИХСЯ ПАКЕТОВ</h4>
+            <img src="./assets/order4.svg" style="width: 1000px" />
+            <aside class="notes">
+              В обеих ситуациях получателю приходится иметь дело с
+              неупорядоченными пакетами. К счастью, получатель может
+              использовать порядковые номера для повторной сборки пакетных
+              данных в правильном порядке.
+            </aside>
+          </section>
+        </section>
+        <section>
+          <section>
+            <h2>TCP/IP</h2>
+            <img src="./assets/stack.svg" style="width: 500px" />
+            <aside class="notes">
+              Теперь давайте выясним, как это работает на прикладном
+              (application) уровне. Всякий раз, когда вы посещаете страницу в
+              Интернете, ваш компьютер использует протокол передачи гипертекста
+              (HTTP) для загрузки этой страницы с другого компьютера где-либо в
+              Интернете.
+            </aside>
+          </section>
+          <section>
+            <h4>ШАГ 1: ПЕРЕНАПРАВЛЕНИЕ БРАУЗЕРА НА URL-АДРЕС</h4>
+            <img src="./assets/step1-1.svg" style="width: 1000px" />
+            <aside class="notes">
+              Когда мы хотим просматривать веб-страницы, мы можем использовать
+              компьютер с установленным браузерным приложением. Пользователь
+              либо вводит единый указатель ресурсов (URL) в браузере, либо
+              переходит по ссылке с уже открытой страницы.
+            </aside>
+          </section>
+          <section>
+            <h4>ШАГ 2: БРАУЗЕР ИЩЕТ IP-АДРЕС</h4>
+            <img src="./assets/step2-2.svg" style="width: 1000px" />
+            <aside class="notes">
+              Обычно мы вводим в браузеры удобные для пользователя URL-адреса,
+              например "google.com" или "wikipedia.org". Эти доменные имена
+              сопоставляются с IP-адресами, истинным местоположением компьютеров
+              домена. Браузер использует распознаватель системы доменных имен
+              для сопоставления домена с IP-адресом.
+            </aside>
+          </section>
+          <section>
+            <h4>ШАГ 3: БРАУЗЕР ОТПРАВЛЯЕТ HTTP-ЗАПРОС</h4>
+            <img src="./assets/step3-3.svg" style="width: 1000px" />
+            <aside class="notes">
+              Как только браузер идентифицирует IP-адрес компьютера, на котором
+              размещен запрошенный URL, он отправляет HTTP-запрос.
+            </aside>
+          </section>
+          <section>
+            <h4>ШАГ 4: ХОСТ ОТПРАВЛЯЕТ ОБРАТНО HTTP-ОТВЕТ</h4>
+            <img src="./assets/step4-4.svg" style="width: 1000px" />
+            <aside class="notes">
+              Как только главный компьютер получает HTTP-запрос, он отправляет
+              обратно ответ как с содержимым, так и с метаданными о нем.
+            </aside>
+          </section>
+          <section>
+            <h4>ШАГ 5: БРАУЗЕР ОТРИСОВЫВАЕТ ОТВЕТ</h4>
+            <img src="./assets/step5-5.svg" style="width: 600px" />
+            <aside class="notes">
+              Теперь браузер располагает всей информацией, необходимой для
+              отображения запрошенного документа.
+            </aside>
+          </section>
+          <section>
+            <h2>HTTP AND TCP/IP</h2>
+            <img src="./assets/stepF.svg" style="width: 1000px" />
+            <aside class="notes">
+              HTTP - это протокол, построенный поверх протоколов TCP/IP. Каждый
+              HTTP-запрос находится внутри IP-пакета, а каждый HTTP-ответ
+              находится внутри другого IP-пакета - или, что более типично,
+              нескольких пакетов, поскольку данные ответа могут быть довольно
+              большими.
+            </aside>
+          </section>
+        </section>
+        <section>
+          <section>
+            <h2>Версии HTTP</h2>
+            <img src="./assets/http3.png" style="width: 1000px" />
+            <aside class="notes">
+              HTTP был фактическим способом передачи информации во Всемирной
+              паутине. Хотя версия 1.1 по-прежнему является наиболее широко
+              внедренным протоколом, у нее есть свои ограничения. Поэтому для
+              решения этой проблемы пришлось внедрить более новые версии.
+            </aside>
+          </section>
+          <section>
+            <h2>HTTP 1.1 / HTTP 2</h2>
+            <img src="./assets/http1.png" style="width: 1000px" />
+            <aside class="notes">
+              Было известно, что HTTP/1.1 имеет медленное время отклика, и
+              поэтому, по мере роста использования Интернета, возникла
+              необходимость уменьшить задержку и повысить скорость загрузки
+              страниц. HTTP/2 изменяет форматирование данных, уровень двоичных
+              фреймов и способ передачи данных в архитектуре клиент-сервер, в то
+              же время абстрагируя сложность модификации для существующих
+              приложений.
+            </aside>
+          </section>
+          <section>
+            <h2>HTTP 2 / HTTP 3</h2>
+            <img src="./assets/http4.png" style="width: 1000px" />
+            <aside class="notes">
+              Недавно было введено обновление протокола HTTP/3. В то время как
+              HTTP/1.1 и HTTP/2 в основном являются "HTTP-over-TCP", HTTP/3
+              выполняется через QUIC (быстрые интернет-соединения UDP).
+            </aside>
+          </section>
+          <section>
+            <img src="./assets/http5.png" style="width: 700px" />
+            <aside class="notes">
+              Основная проблема с TCP заключается в том, что перед установлением
+              сеанса между клиентом и сервером необходимо установить TLS тройное
+              рукопожатие для проверки наличия безопасного сеанса.
+            </aside>
+          </section>
+          <section>
+            <img src="./assets/http6.png" style="width: 700px" />
+            <aside class="notes">
+              Чтобы сократить время на эти процессы, QUIC требует одно
+              рукопожатие для установления безопасного сеанса. Уровень QUIC
+              по-прежнему работает по зашифрованному транспортному протоколу.
+              HTTP/2 не смог решить проблему задержки при соединениях с потерями
+              и замедлением работы. Чтобы решить эту проблему, QUIC обеспечивает
+              собственное мультиплексирование, и потерянные пакеты в основном
+              влияют на потоки, в которых были сброшены данные, а не на
+              остановку всей системы.
+            </aside>
+          </section>
+          <section>
+            <h2>ЗАКЛЮЧЕНИЕ</h2>
+            <img src="./assets/http7.png" style="width: 800px" />
+            <aside class="notes">
+              Для HTTP/1.1 и HTTP/2 TCP является транспортом в архитектуре.
+              Однако HTTP/3 использует QUICK в качестве своего сетевого
+              транспортного уровня, который реализует контроль перегрузки
+              пользовательского пространства по протоколу пользовательских
+              дейтаграмм (UDP). HTTP/3 скоро станет стандартным протоколом, и
+              эта версия уже получила огромное распространение в браузерах.
+            </aside>
+          </section>
+        </section>
+        <section>Спасибо за внимание</section>
+      </div>
+    </div>
 
-		<script src="dist/reveal.js"></script>
-		<script src="plugin/notes/notes.js"></script>
-		<script src="plugin/markdown/markdown.js"></script>
-		<script src="plugin/highlight/highlight.js"></script>
-		<script>
-			// More info about initialization & config:
-			// - https://revealjs.com/initialization/
-			// - https://revealjs.com/config/
-			Reveal.initialize({
-				hash: true,
+    <script src="dist/reveal.js"></script>
+    <script src="plugin/notes/notes.js"></script>
+    <script src="plugin/markdown/markdown.js"></script>
+    <script src="plugin/highlight/highlight.js"></script>
+    <script>
+      // More info about initialization & config:
+      // - https://revealjs.com/initialization/
+      // - https://revealjs.com/config/
+      Reveal.initialize({
+        hash: true,
 
-				// Learn about plugins: https://revealjs.com/plugins/
-				plugins: [ RevealMarkdown, RevealHighlight, RevealNotes ]
-			});
-		</script>
-	</body>
+        // Learn about plugins: https://revealjs.com/plugins/
+        plugins: [RevealMarkdown, RevealHighlight, RevealNotes],
+      });
+    </script>
+  </body>
 </html>
